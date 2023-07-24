@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 import cors from 'cors'
 import { apiRoutes } from './routes'
 
@@ -16,6 +16,16 @@ app.get('/status', (req,res) => {
     })
 })
 
-app.use('**', (req, res) => res.status(404).send({ status: 0, message: 'Route not found' }))
+app.use((req, res, next) => {
+    const err = { message: 'Route not found', status: 404}
+    next(err)
+})
+
+app.use((error: any, req: Request, res: Response) => {
+    return res.status(error.status || 500).send({
+        error
+    })
+})
+
 
 export { app }
