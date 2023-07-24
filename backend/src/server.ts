@@ -1,6 +1,10 @@
 import express, { Request, Response } from 'express'
 import cors from 'cors'
+
+import { startDBConnection } from './services/db/setup'
 import { apiRoutes } from './routes'
+
+startDBConnection()
 
 const app = express()
 app.use(express.json())

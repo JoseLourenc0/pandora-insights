@@ -13,7 +13,10 @@ services:
     depends_on:
       - mongodb
     volumes:
-      - .:/src
+      - ./backend/src:/code/src:ro
+      - ./backend/package.json:/code/package.json
+      - ./backend/package-lock.json:/code/package-lock.json
+      - back-notused:/opt/app/node_modules
     networks:
       - private
     command: npm run dev
@@ -31,13 +34,17 @@ services:
       - backend
   
   mongodb:
+    restart: always
     image: mongo:6-jammy
     ports:
       - '27017:27017'
     volumes:
       - db-data:/data/db
+    networks:
+      - private
 
 volumes:
+  back-notused:
   db-data:
 
 networks:
