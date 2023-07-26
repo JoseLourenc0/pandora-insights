@@ -21,7 +21,7 @@ app.get('/status', (req,res) => {
 })
 
 app.use((req, res, next) => {
-    const err = { message: 'Route not found', status: 404}
+    const err = { message: 'Route not found', status: 404 }
     next(err)
 })
 
