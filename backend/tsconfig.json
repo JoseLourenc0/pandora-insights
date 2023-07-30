@@ -1,9 +1,22 @@
 {
-    "extends": "@tsconfig/node18/tsconfig.json",
-    "compilerOptions": {
-        "outDir": "./dist",
-        "rootDir": "./src"
-    },
-    "include": ["./src"],
-    "exclude": ["*.spec.ts"]
+  "extends": "@tsconfig/node18/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+
+    // "module": "ESNext",
+    // "moduleResolution": "NodeNext",
+    // "esModuleInterop": true,
+    "resolveJsonModule": true,
+    /* PATHS */
+    "baseUrl": "src",
+    "paths": {
+      "@models/*": ["models/*"]
+    }
+  },
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  },
+  "include": ["./src"],
+  "exclude": ["*.spec.ts"]
 }

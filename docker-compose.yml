@@ -1,0 +1,51 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      args:
+        - NODE_ENV=development
+      context: backend
+      target: development
+    environment:
+      - MONGODB_URL=mongodb://mongodb:27017/pandora-insights
+    ports:
+      - '3000:3000'
+    depends_on:
+      - mongodb
+    volumes:
+      - ./backend/src:/code/src:ro
+      - ./backend/package.json:/code/package.json
+      - ./backend/package-lock.json:/code/package-lock.json
+      - back-notused:/opt/app/node_modules
+    networks:
+      - private
+    command: npm run dev
+
+  frontend:
+    build:
+      context: frontend
+      target: development
+    ports:
+      - 5173:5173
+    volumes:
+      - ./frontend/src:/code/src
+      - /code/node_modules
+    depends_on:
+      - backend
+  
+  mongodb:
+    restart: always
+    image: mongo:6-jammy
+    ports:
+      - '27017:27017'
+    volumes:
+      - db-data:/data/db
+    networks:
+      - private
+
+volumes:
+  back-notused:
+  db-data:
+
+networks:
+  private:
