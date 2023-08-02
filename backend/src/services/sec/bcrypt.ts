@@ -1,4 +1,4 @@
-import { hash } from 'bcrypt'
+import { hash, compare } from 'bcrypt'
 
 const SALT_ROUNDS = process.env.SALT_ROUNDS || 8
 
@@ -8,5 +8,6 @@ const generateHash = (pass: string) => new Promise((resolve,reject) => hash(pass
 }))
 
 export {
-    generateHash
+    generateHash,
+    compare
 }
