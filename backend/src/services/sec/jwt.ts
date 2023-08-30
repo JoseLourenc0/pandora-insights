@@ -11,8 +11,8 @@ const {
 
 export class Jwt {
 
-    private jwtKey = JWT_KEY
-    private jwtTimeExp = JWT_TIME_EXP || 3600
+    private jwtKey = JWT_KEY || 'jwtKey'
+    private jwtTimeExp = Number(JWT_TIME_EXP) || 3600
 
     verify (token: string) {
         return verify(token, this.jwtKey)
